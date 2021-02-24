@@ -5,13 +5,14 @@ Ubuntu environment for python development
 If any packages is required, add a line of "RUN conda install ..." before the clean command in the Dockerfile     
 
 ### Build 
+
  docker build -t haseong/python-base:v0.1 .    
 
 OR RUN the following in Powershell
 
  docker_build.bat 
 
-You can change the ID/name:tag as you like. The build process will take around 30min or more. You can download the image as follows
+You can change the ID/name:tag as you like. The build process will take around 30min or more. You can download the image as follows.
 
  docker pull haseong/python-base:v0.1
 
