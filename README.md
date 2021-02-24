@@ -1,7 +1,7 @@
 # Collection of docker images for SBLab at KRIBB
 
 ## python-base
-Ubuntu environment for python development. If you require any packages, add a line of "RUN conda install [package name]" before the cleanning command at the end of the Dockerfile     
+Ubuntu environment for python development. If you require any additional packages, add a line of "RUN conda install [package name]" before the cleanning command at the end of the Dockerfile     
 
 ### Build 
 
