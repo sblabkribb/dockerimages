@@ -11,6 +11,11 @@ OR RUN the following in Powershell
 
  docker_build.bat 
 
+You can change the ID/name:tag as you like. The build process will take around 30min or more. You can download the image as follows
+
+ docker pull haseong/python-base:v0.1
+
+
 ### Execution
 
  docker run --rm -it --name python-base -v ${PWD}:/home/python/ haseong/python-base:0.1 /bin/bash    
