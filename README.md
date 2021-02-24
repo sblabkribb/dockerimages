@@ -8,18 +8,20 @@ Ubuntu environment for python development. If you require any packages, add a li
 ```
 docker build -t haseong/python-base:v0.1 .    
 ```
-You can change the [ID/name:tag] as you like. The build process will take around 30min or more. You can download the image as follows.
+You can change the [ID/name:tag] as you like. The build process will take around 30min or more. You can also download the image as follows.
+
+```
+docker pull haseong/python-base:v0.1
+```
+
+OR run the following batch file in Powershell
 
 ```
 docker_build.bat 
 ```
 
-OR run the following batch file in Powershell
 
 
-```
-docker pull haseong/python-base:v0.1
-```
 
 
 ### Execution
