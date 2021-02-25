@@ -27,8 +27,10 @@ docker_build.bat
 ### Execution
 
 ```
-docker run --rm -it --name python-base -v ${PWD}:/home/python/ haseong/python-base:0.1 /bin/bash    
+docker run --rm -it --name python-base -v c:/mydocs/2021/dev:/home/python/dev haseong/python-base:0.1 /bin/bash    
 ```
+
+According to your environment, you can change the directory [c:/mydocs/2021/dev:/home/python/dev] which is [directory of your local machine:directory in the container]   
 
 OR run the following file in Powershell
 

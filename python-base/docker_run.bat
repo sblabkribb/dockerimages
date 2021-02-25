@@ -1,1 +1,1 @@
-docker run --rm -it -d -p 8888:8888  --name python-base -v ${PWD}:/home/python/ haseong/python-base:v0.1 jupyter lab --no-browser --allow-root --ip=0.0.0.0 --notebook-dir=/home/python/ --NotebookApp.token=
+docker run --rm -it -d -p 8888:8888 --name python-base -v c:/mydocs/2021/dev:/home/python/dev haseong/python-base:v0.1 jupyter lab --no-browser --allow-root --ip=0.0.0.0 --notebook-dir=/home/python/dev --NotebookApp.token=
