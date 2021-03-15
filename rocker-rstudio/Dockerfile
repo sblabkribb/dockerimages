@@ -28,7 +28,6 @@ RUN wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.16.9
 RUN gdebi shiny-server-1.5.16.958-amd64.deb
 
 #RUN install2.r --error -r 'http://cran.rstudio.com' pbmcapply 
-#RUN install2.r --error -r 'http://cran.rstudio.com' tidyverse BiocManager 
 RUN install2.r --error -r 'http://cran.rstudio.com' tidyverse  
 RUN install2.r --error -r 'http://cran.rstudio.com' BiocManager 
 RUN install2.r --error -r 'http://cran.rstudio.com' pbmcapply 
