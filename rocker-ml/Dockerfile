@@ -1,9 +1,10 @@
 #FROM rocker/ml-gpu:latest
 FROM rocker/ml:4.0.4
 
-RUN apt-get install --reinstall -y ca-certificates
+#RUN apt-get install --reinstall -y ca-certificates
 RUN apt-get update 
-RUN apt-get install -y liblzma-dev libbz2-dev cmake 
+#RUN apt-get install -y libbz2-dev  
+#RUN apt-get install -y liblzma-dev cmake 
 RUN apt-get install -y libxt-dev vim 
 
 RUN locale-gen ko_KR.UTF-8
