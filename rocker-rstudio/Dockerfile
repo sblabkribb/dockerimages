@@ -33,6 +33,10 @@ RUN install2.r --error -r 'http://cran.rstudio.com' tidyverse
 RUN install2.r --error -r 'http://cran.rstudio.com' BiocManager 
 RUN install2.r --error -r 'http://cran.rstudio.com' pbmcapply 
 RUN install2.r --error -r 'http://cran.rstudio.com' tinytex
+RUN install2.r --error -r 'http://cran.rstudio.com' deSolve reutils minpack.lm
+
+## add
+RUN install2.r --error -r 'http://cran.rstudio.com' XML
 
 
 #RUN install2.r --error -r 'http://cran.rstudio.com' caret futile.logger snow matrixStats 
