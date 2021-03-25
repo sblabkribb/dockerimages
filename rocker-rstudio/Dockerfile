@@ -35,8 +35,13 @@ RUN install2.r --error -r 'http://cran.rstudio.com' pbmcapply
 RUN install2.r --error -r 'http://cran.rstudio.com' tinytex
 RUN install2.r --error -r 'http://cran.rstudio.com' deSolve reutils minpack.lm
 
-## add
 RUN install2.r --error -r 'http://cran.rstudio.com' XML
+RUN install2.r --error -r 'http://cran.rstudio.com' DT shiny
+RUN apt-get install -y libmysqlclient-dev
+RUN install2.r --error -r 'http://cran.rstudio.com' RMySQL
+RUN install2.r --error -r 'http://cran.rstudio.com' gt kableExtra
+RUN apt-get install -y texlive-extra-utils ghostscript
+RUN apt-get install -y texlive-full
 
 
 #RUN install2.r --error -r 'http://cran.rstudio.com' caret futile.logger snow matrixStats 
