@@ -43,6 +43,8 @@ RUN install2.r --error -r 'http://cran.rstudio.com' gt kableExtra
 RUN apt-get install -y texlive-extra-utils ghostscript
 RUN apt-get install -y texlive-full
 
+RUN install2.r --error -r 'http://cran.rstudio.com' caret viridis e1071 randomForest
+
 
 #RUN install2.r --error -r 'http://cran.rstudio.com' caret futile.logger snow matrixStats 
 #RUN install2.r --error -r 'http://cran.rstudio.com' hwriter reutils ape deSolve latticeExtra
