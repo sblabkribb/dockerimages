@@ -45,14 +45,14 @@ RUN apt-get install -y texlive-full
 
 RUN install2.r --error -r 'http://cran.rstudio.com' caret viridis e1071 randomForest
 
+RUN R -e 'BiocManager::install(c("BiocParallel", "DelayedArray", "Rsamtools", "Rhtslib"), ask=F)'
+RUN R -e 'BiocManager::install(c("Biostrings", "ShortRead", "GenomicRange"), ask=F)'
+RUN R -e 'BiocManager::install(c("genbankr", "ggbio", "plyranges"), ask=F)'
+RUN R -e 'BiocManager::install("DNABarcodes", ask=F)'
 
-#RUN install2.r --error -r 'http://cran.rstudio.com' caret futile.logger snow matrixStats 
+
+#RUN install2.r --error -r 'http://cran.rstudio.com' futile.logger snow matrixStats 
 #RUN install2.r --error -r 'http://cran.rstudio.com' hwriter reutils ape deSolve latticeExtra
-
-#RUN R -e 'BiocManager::install(c("BiocParallel", "DelayedArray", "Rsamtools", "Rhtslib"), ask=F)'
-#RUN R -e 'BiocManager::install(c("Biostrings", "ShortRead", "GenomicRange"), ask=F)'
-#RUN R -e 'BiocManager::install(c("genbankr", "ggbio", "plyranges"), ask=F)'
-#RUN R -e 'BiocManager::install("DNABarcodes", ask=F)'
 
 
 RUN apt-get autoremove -y && \
