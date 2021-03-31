@@ -33,7 +33,9 @@ RUN install2.r --error -r 'http://cran.rstudio.com' deSolve reutils minpack.lm
 RUN install2.r --error -r 'http://cran.rstudio.com' XML DT shiny
 RUN install2.r --error -r 'http://cran.rstudio.com' RMySQL gt kableExtra
 RUN install2.r --error -r 'http://cran.rstudio.com' caret viridis e1071 randomForest
-RUN install2.r --error -r 'http://cran.rstudio.com' doParallel libtiff5-dev tiff jpeg wesanderson
+
+RUN apt-get install -y libtiff5-dev libtiff-tools
+RUN install2.r --error -r 'http://cran.rstudio.com' doParallel tiff jpeg wesanderson
 RUN install2.r --error -r 'http://cran.rstudio.com' hwriter ape latticeExtra
 
 RUN R -e 'BiocManager::install(c("BiocParallel", "DelayedArray", "Rsamtools", "Rhtslib"), ask=F)'
