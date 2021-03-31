@@ -1,4 +1,4 @@
 #!/bin/bash
-#docker build --no-cache=true -t haseong/rocker-rstudio:v0.5 .
-docker build -t haseong/rocker-rstudio:v0.7 .
+docker build --no-cache=true -t haseong/rocker-rstudio:v0.7 .
+#docker build -t haseong/rocker-rstudio:v0.7 .
 
