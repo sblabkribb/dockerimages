@@ -45,6 +45,9 @@ RUN R -e 'BiocManager::install("DNABarcodes", ask=F)'
 RUN R -e 'BiocManager::install("DECIPHER", ask=F)'
 
 
+RUN apt-get install -y python3-pip
+RUN pip3 install nanofilt
+
 #RUN install2.r --error -r 'http://cran.rstudio.com' futile.logger snow matrixStats 
 
 RUN apt-get autoremove -y && \
