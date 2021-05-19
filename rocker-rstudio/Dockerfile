@@ -28,6 +28,7 @@ RUN apt-get install -y libmysqlclient-dev
 #RUN wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.16.958-amd64.deb
 #RUN gdebi shiny-server-1.5.16.958-amd64.deb
 
+RUN install2.r --error -r 'http://cran.rstudio.com' testthat usethis devtools bookdown
 RUN install2.r --error -r 'http://cran.rstudio.com' pbmcapply reticulate tidyverse BiocManager tinytex
 RUN install2.r --error -r 'http://cran.rstudio.com' deSolve reutils minpack.lm
 RUN install2.r --error -r 'http://cran.rstudio.com' XML DT shiny
@@ -46,6 +47,10 @@ RUN R -e 'BiocManager::install("DECIPHER", ask=F)'
 
 RUN apt-get install -y python3-pip
 RUN pip3 install nanofilt
+
+RUN apt-get install -y python3-pip
+RUN pip3 install nanofilt
+
 
 #RUN install2.r --error -r 'http://cran.rstudio.com' futile.logger snow matrixStats 
 
