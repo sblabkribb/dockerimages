@@ -4,7 +4,7 @@ sudo docker run -d --rm \
 	-e PASSWORD=haseong \
 	-v /home/haseong/alpha/:/alpha/ \
 	--name rstudio-server \
-	haseong/rocker-rstudio:v0.7
+	haseong/rocker-rstudio:v0.8
 	#haseong/rstudio-server-run:v02
 
 
