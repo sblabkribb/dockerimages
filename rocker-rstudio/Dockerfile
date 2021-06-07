@@ -48,9 +48,11 @@ RUN R -e 'BiocManager::install("DECIPHER", ask=F)'
 RUN apt-get install -y python3-pip
 RUN pip3 install nanofilt
 
-RUN apt-get install -y python3-pip
-RUN pip3 install nanofilt
-
+## v1.1
+RUN install2.r --error -r 'http://cran.rstudio.com' taxonomizer  
+RUN apt-get install -y ncbi-blast+
+RUN R -e 'BiocManager::install(c("plyrange", "seqinr"), ask=F)'
+ENV BLASTDB /home/rstudio/alpha/blastdb
 
 #RUN install2.r --error -r 'http://cran.rstudio.com' futile.logger snow matrixStats 
 
