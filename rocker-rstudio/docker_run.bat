@@ -1,2 +1,2 @@
-docker run -d --rm -v c:\mydocs\2021:/home/rstudio/alpha --name rstudio-server -e PASSWORD=haseong -p 8787:8787 haseong/rocker-rstudio:v0.5
+docker run -d --rm -e PASSWORD=haseong -v d:\mydocs\2021:/home/rstudio/alpha -p 8787:8787 --name rstudio-server haseong/rocker-rstudio:v1.0
 
