@@ -21,7 +21,6 @@ RUN apt-get install -y texlive-xetex language-pack-ko fonts-nanum pandoc
 RUN apt-get install -y texlive-full texlive-extra-utils ghostscript
 RUN apt-get install -y libmysqlclient-dev
 
-
 ## shiny
 #RUN apt-get install -y r-base
 #RUN apt-get install -y gdebi-core
@@ -52,7 +51,7 @@ RUN pip3 install nanofilt
 RUN install2.r --error -r 'http://cran.rstudio.com' taxonomizer  
 RUN apt-get install -y ncbi-blast+
 RUN R -e 'BiocManager::install(c("plyrange", "seqinr"), ask=F)'
-ENV BLASTDB /home/rstudio/alpha/blastdb
+ENV BLASTDB /home/rstudio/153_SeqDB/blastdb
 
 #RUN install2.r --error -r 'http://cran.rstudio.com' futile.logger snow matrixStats 
 
