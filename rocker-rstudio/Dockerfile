@@ -49,10 +49,18 @@ RUN apt-get install -y python3-pip
 RUN pip3 install nanofilt
 
 ## v1.1
-RUN install2.r --error -r 'http://cran.rstudio.com' taxonomizer  
+#RUN install2.r --error -r 'http://cran.rstudio.com' taxonomizer  
 RUN apt-get install -y ncbi-blast+
-RUN R -e 'BiocManager::install(c("plyrange", "seqinr"), ask=F)'
+RUN R -e 'BiocManager::install(c("plyrange", "seqinr", "msa"), ask=F)'
 ENV BLASTDB /home/rstudio/alpha/blastdb
+
+# v1.2
+## apt-get
+RUN apt-get install -y bwa bowtie2 samtools bcftools 
+## R package CRAN, bioconductor
+RUN install2.r --error -r 'http://cran.rstudio.com' vcfR
+RUN R -e 'BiocManager::install("VariantTools", ask=F)'
+
 
 #RUN install2.r --error -r 'http://cran.rstudio.com' futile.logger snow matrixStats 
 

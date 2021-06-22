@@ -21,9 +21,6 @@ docker_build.bat
 ```
 
 
-
-
-
 ### Execution
 
 ```
@@ -41,6 +38,15 @@ docker_run.bat
 This script enables to access jupyter-lab directly via web browser with 8888 port. Type "http://localhost:8888" in Chrome
 
 
+
+## rocker-rstudio
+
+Ubuntu environment for R development. Rstudio server with multiple users is available. 
+
+
+### Update
+
+Add apropriate apps before the clean up script in the Dockerfile. 
 
 
 
