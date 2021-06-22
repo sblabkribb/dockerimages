@@ -21,7 +21,6 @@ RUN apt-get install -y texlive-xetex language-pack-ko fonts-nanum pandoc
 RUN apt-get install -y texlive-full texlive-extra-utils ghostscript
 RUN apt-get install -y libmysqlclient-dev
 
-
 ## shiny
 #RUN apt-get install -y r-base
 #RUN apt-get install -y gdebi-core
