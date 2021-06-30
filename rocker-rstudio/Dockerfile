@@ -55,10 +55,18 @@ ENV BLASTDB /home/rstudio/alpha/blastdb
 
 # v1.2
 ## apt-get
-RUN apt-get install -y bwa bowtie2 samtools bcftools 
+RUN apt-get install -y bwa bowtie2 samtools bcftools clustalw
 ## R package CRAN, bioconductor
 RUN install2.r --error -r 'http://cran.rstudio.com' vcfR
 RUN R -e 'BiocManager::install(c("VariantTools", "Structstrings"), ask=F)'
+
+# v1.3
+RUN apt-get install -y elfutils
+RUN cd /usr/local/bin
+RUN wget https://ftp.ncbi.nlm.nih.gov/genomes/TOOLS/ORFfinder/linux-i64/ORFfinder.gz
+RUN gzip -d ORFfinder.gz
+RUN chmod 755 ORFfinder
+
 
 
 #RUN install2.r --error -r 'http://cran.rstudio.com' futile.logger snow matrixStats 
