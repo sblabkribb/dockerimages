@@ -58,7 +58,7 @@ ENV BLASTDB /home/rstudio/alpha/blastdb
 RUN apt-get install -y bwa bowtie2 samtools bcftools 
 ## R package CRAN, bioconductor
 RUN install2.r --error -r 'http://cran.rstudio.com' vcfR
-RUN R -e 'BiocManager::install("VariantTools", ask=F)'
+RUN R -e 'BiocManager::install(c("VariantTools", "Structstrings"), ask=F)'
 
 
 #RUN install2.r --error -r 'http://cran.rstudio.com' futile.logger snow matrixStats 
