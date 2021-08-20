@@ -66,7 +66,16 @@ RUN cd /usr/local/bin
 RUN wget https://ftp.ncbi.nlm.nih.gov/genomes/TOOLS/ORFfinder/linux-i64/ORFfinder.gz
 RUN gzip -d ORFfinder.gz
 RUN chmod 755 ORFfinder
+RUN R -e 'BiocManager::install(c("ggtree"), ask=F)'
 
+
+# v1.4
+RUN apt-get install -y mysql-client
+RUN install2.r --error -r 'http://cran.rstudio.com' RMySQL bslib shinydashboard shinydashboardPlus
+
+# v1.5
+RUN apt-get install -y config xlsx
+RUN install2.r --error -r 'http://cran.rstudio.com' shinyjs shinyFeedback shinycssloaders shinyFeedback
 
 
 #RUN install2.r --error -r 'http://cran.rstudio.com' futile.logger snow matrixStats 

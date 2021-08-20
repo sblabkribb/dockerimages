@@ -1,0 +1,35 @@
+version: '2'
+
+services:
+  db:
+    image: mysql:latest
+    container_name: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    volumes: 
+        - d:\mydocs\mysql:/var/lib/mysql
+    environment:
+      MYSQL_USER: "haseong"
+      MYSQL_PASSWORD: "haseongpass"
+      MYSQL_ROOT_PASSWORD: "rootpass"
+        
+  rocker:
+    image: haseong/rocker-rstudio:v1.4
+    container_name: rstudio 
+    build:
+      context: .
+      dockerfile: ./rocker-rstudio/Dockerfile
+    volumes:
+      - d:\mydocs\2021:/home/rstudio/alpha
+    stdin_open: true
+    ports:
+        - 8787:8787
+    environment:
+      PASSWORD: "haseong"
+      DEBUG_COLORS: "true"
+      TERM: xterm-256color
+      COLORTERM: truecolor
+    
+
+
