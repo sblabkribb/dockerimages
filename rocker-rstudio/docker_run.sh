@@ -1,4 +1,6 @@
 #!/bin/bash
+getent passwd {1000..6000} | cut -d: -f1 > users.txt
+
 sudo docker run -d --rm \
 	-e PASSWORD=haseong \
 	-v /home/haseong/:/home/rstudio/ \

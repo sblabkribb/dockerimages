@@ -1,4 +1,5 @@
-FROM rocker/rstudio:4.0.4
+FROM rocker/rstudio:4.1.0
+#FROM rocker/rstudio:devel
 
 RUN apt-get update 
 RUN apt-get install -y liblzma-dev libbz2-dev 
@@ -38,6 +39,7 @@ RUN apt-get install -y libtiff5-dev libtiff-tools
 RUN install2.r --error -r 'http://cran.rstudio.com' doParallel tiff jpeg wesanderson
 RUN install2.r --error -r 'http://cran.rstudio.com' hwriter ape latticeExtra
 
+RUN install2.r --error -r 'http://cran.rstudio.com' BiocManager
 RUN R -e 'BiocManager::install(c("BiocParallel", "DelayedArray", "Rsamtools", "Rhtslib"), ask=F)'
 RUN R -e 'BiocManager::install(c("Biostrings", "ShortRead", "GenomicRange"), ask=F)'
 RUN R -e 'BiocManager::install(c("genbankr", "ggbio", "plyranges"), ask=F)'
@@ -74,11 +76,17 @@ RUN apt-get install -y mysql-client
 RUN install2.r --error -r 'http://cran.rstudio.com' RMySQL bslib shinydashboard shinydashboardPlus
 
 # v1.5
-RUN apt-get install -y config xlsx
-RUN install2.r --error -r 'http://cran.rstudio.com' shinyjs shinyFeedback shinycssloaders shinyFeedback
+RUN install2.r --error -r 'http://cran.rstudio.com' shinyjs shinyFeedback 
+RUN install2.r --error -r 'http://cran.rstudio.com' shinycssloaders shinyFeedback 
+RUN install2.r --error -r 'http://cran.rstudio.com' config 
 
 
 #RUN install2.r --error -r 'http://cran.rstudio.com' futile.logger snow matrixStats 
+
+
+## 
+COPY --chown=rstudio:rstudio rstudio-prefs.json /home/rstudio/.config/rstudio/rstudio-prefs.json
+
 
 RUN apt-get autoremove -y && \
     apt-get clean && \
