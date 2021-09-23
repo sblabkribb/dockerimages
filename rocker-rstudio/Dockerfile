@@ -80,6 +80,8 @@ RUN install2.r --error -r 'http://cran.rstudio.com' shinyjs shinyFeedback
 RUN install2.r --error -r 'http://cran.rstudio.com' shinycssloaders shinyFeedback 
 RUN install2.r --error -r 'http://cran.rstudio.com' config 
 
+# v1.6
+RUN install2.r --error -r 'http://cran.rstudio.com' rstan shinystan ggthemes pool jsonlite plumber
 
 #RUN install2.r --error -r 'http://cran.rstudio.com' futile.logger snow matrixStats 
 
