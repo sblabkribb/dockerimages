@@ -2,13 +2,13 @@ version: '2'
 
 services:
   db:
-    image: mysql:latest
+    image: mysql:8.0
     container_name: mysql
     restart: always
     ports:
       - 3306:3306
     volumes: 
-        - /mnt/a/mysql:/var/lib/mysql
+        - /mnt/alpha/mysql:/var/lib/mysql
     environment:
        - MYSQL_ALLOW_EMPTY_PASSWORD=true
 #      - MYSQL_USER="haseong"
@@ -17,14 +17,14 @@ services:
 #      - MYSQL_ROOT_HOST="%"
         
   rocker:
-    image: haseong/rocker-rstudio:v1.5
+    image: haseong/rocker-rstudio:v1.6
     container_name: rstudio 
     build:
       context: .
       dockerfile: ./rocker-rstudio/Dockerfile
     volumes:
-      - /mnt/a/:/home/rstudio/a
-      - /mnt/a/home:/mnt/a/home
+      - /mnt/alpha/:/home/rstudio/alpha
+      - /mnt/alpha/home:/mnt/alpha/home
     stdin_open: true
     ports:
         - 8787:8787

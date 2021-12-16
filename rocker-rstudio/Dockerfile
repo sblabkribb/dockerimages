@@ -17,7 +17,6 @@ RUN apt-get install -y openmpi-common openmpi-bin libopenmpi-dev libjpeg-dev
 RUN apt-get install -y libxml2-dev 
 
 ## for pdf, tex engine, texlive-xetex is required for hangule pdf
-#RUN apt-get install -y texlive-latex-extra
 RUN apt-get install -y texlive-xetex language-pack-ko fonts-nanum pandoc
 RUN apt-get install -y texlive-full texlive-extra-utils ghostscript
 RUN apt-get install -y libmysqlclient-dev
