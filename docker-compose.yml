@@ -29,7 +29,7 @@ services:
     ports:
         - 8787:8787
     environment:
-      PASSWORD: ""
+#      PASSWORD: ""
       DEBUG_COLORS: "true"
       TERM: xterm-256color
       COLORTERM: truecolor

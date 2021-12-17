@@ -1,52 +1,20 @@
 # Collection of docker images for SBLab at KRIBB
 
-## python-base
-Ubuntu environment for python development. If you require any additional packages, add a line of "RUN conda install [package name]" before the cleanning command at the end of the Dockerfile     
+- docker-compose로 rocker-rstudio와 mysql:8.0이 실행. 설정파일은 docker-compose.yml 이며 mysql은 별도 Dockerfile 없이 이미지를 바로 다운로드해서 사용
 
-### Build 
+- rocker-rstudio는 rstudio-server 사용을 위한 대부분의 패키지가 설치되어 있는 이미지임
 
-```
-docker build -t haseong/python-base:v0.1 .    
-```
-You can change the [ID/name:tag] as you like. The build process will take around 30min or more. You can also download the image as follows.
+
+# Installation
 
 ```
-docker pull haseong/python-base:v0.1
-```
-
-OR run the following batch file in Powershell
-
-```
-docker_build.bat 
+> git clone git@github.com:sblabkribb/dockerimages.git
+> cd dockerimages
+> docker-compose up -d
+> ./users_sync.sh
 ```
 
 
-### Execution
-
-```
-docker run --rm -it --name python-base -v c:/mydocs/2021/dev:/home/python/dev haseong/python-base:0.1 /bin/bash    
-```
-
-According to your environment, you can change the directory [c:/mydocs/2021/dev:/home/python/dev] which is [directory of your local machine:directory in the container]   
-
-OR run the following file in Powershell
-
-```
-docker_run.bat
-```
-
-This script enables to access jupyter-lab directly via web browser with 8888 port. Type "http://localhost:8888" in Chrome
-
-
-
-## rocker-rstudio
-
-Ubuntu environment for R development. Rstudio server with multiple users is available. 
-
-
-### Update
-
-Add apropriate apps before the clean up script in the Dockerfile. 
 
 
 
