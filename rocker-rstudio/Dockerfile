@@ -80,6 +80,7 @@ RUN install2.r --error -r 'http://cran.rstudio.com' shinycssloaders shinyFeedbac
 RUN install2.r --error -r 'http://cran.rstudio.com' config 
 
 # v1.6
+RUN apt-get install -y libv8-dev libsodium-dev
 RUN install2.r --error -r 'http://cran.rstudio.com' rstan shinystan ggthemes pool jsonlite plumber shinybusy
 #RUN install2.r --error -r 'http://cran.rstudio.com' futile.logger snow matrixStats 
 
