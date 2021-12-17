@@ -23,13 +23,13 @@ services:
       context: .
       dockerfile: ./rocker-rstudio/Dockerfile
     volumes:
-      - /mnt/alpha/:/home/rstudio/alpha
+#      - /mnt/alpha/:/home/rstudio/alpha
       - /mnt/alpha/home:/mnt/alpha/home
     stdin_open: true
     ports:
         - 8787:8787
     environment:
-      PASSWORD: "dnjfvhgksrnr12"
+      PASSWORD: ""
       DEBUG_COLORS: "true"
       TERM: xterm-256color
       COLORTERM: truecolor
