@@ -85,6 +85,9 @@ RUN install2.r --error -r 'http://cran.rstudio.com' rstan shinystan ggthemes poo
 #RUN install2.r --error -r 'http://cran.rstudio.com' futile.logger snow matrixStats 
 
 
+# v1.7
+RUN install2.r --error -r 'http://cran.rstudio.com' tensorflow keras
+
 ## 
 COPY --chown=rstudio:rstudio rstudio-prefs.json /home/rstudio/.config/rstudio/rstudio-prefs.json
 
