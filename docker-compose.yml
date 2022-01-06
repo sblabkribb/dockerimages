@@ -17,7 +17,7 @@ services:
 #      - MYSQL_ROOT_HOST="%"
         
   rocker:
-    image: haseong/rocker-rstudio:v1.7
+    image: haseong/rocker-rstudio:v1.8
     container_name: rstudio 
     build:
       context: .

@@ -1,11 +1,14 @@
-FROM rocker/rstudio:4.1.0
+FROM rocker/rstudio:4.1.2
 #FROM rocker/rstudio:devel
 
 RUN apt-get update 
+RUN apt-get install -y apt-utils
 RUN apt-get install -y liblzma-dev libbz2-dev 
 RUN apt-get install -y cmake build-essential gcc 
 RUN apt-get install -y bzip2 ca-certificates curl 
 RUN apt-get install -y libcairo2-dev libxt-dev vim
+RUN apt-get install -y python3-venv
+RUN apt-get install -y python3-pip
 
 RUN locale-gen ko_KR.UTF-8
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
@@ -39,14 +42,14 @@ RUN install2.r --error -r 'http://cran.rstudio.com' doParallel tiff jpeg wesande
 RUN install2.r --error -r 'http://cran.rstudio.com' hwriter ape latticeExtra
 
 RUN install2.r --error -r 'http://cran.rstudio.com' BiocManager
+RUN R -e 'BiocManager::install(c("MatrixGenerics"), ask=F)'
 RUN R -e 'BiocManager::install(c("BiocParallel", "DelayedArray", "Rsamtools", "Rhtslib"), ask=F)'
 RUN R -e 'BiocManager::install(c("Biostrings", "ShortRead", "GenomicRange"), ask=F)'
 RUN R -e 'BiocManager::install(c("genbankr", "ggbio", "plyranges"), ask=F)'
 RUN R -e 'BiocManager::install("DNABarcodes", ask=F)'
 RUN R -e 'BiocManager::install("DECIPHER", ask=F)'
 
-RUN apt-get install -y python3-pip
-RUN pip3 install nanofilt
+RUN pip3 install nanofilt biopython XlsxWriter progressbar
 
 ## v1.1
 #RUN install2.r --error -r 'http://cran.rstudio.com' taxonomizer  
@@ -89,7 +92,7 @@ RUN install2.r --error -r 'http://cran.rstudio.com' rstan shinystan ggthemes poo
 RUN install2.r --error -r 'http://cran.rstudio.com' tensorflow keras
 
 ## 
-COPY --chown=rstudio:rstudio rstudio-prefs.json /home/rstudio/.config/rstudio/rstudio-prefs.json
+#COPY --chown=rstudio:rstudio /mnt/alpha/dockerimages/rstudio-prefs.json /home/rstudio/.config/rstudio/rstudio-prefs.json
 
 
 RUN apt-get autoremove -y && \
