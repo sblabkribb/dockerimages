@@ -11,8 +11,9 @@ cp -p /etc/passwd $userdatadir/
 cp -p /etc/group $userdatadir/
 
 # copy user files to docker container /etc/
-docker exec -it rstudio /bin/bash -c "cp -p $userdatadir/* /etc/"
+docker exec -i rstudio /bin/bash -c "cp -p $userdatadir/* /etc/"
 #docker exec -it rstudio /bin/bash -c "/home/rstudio/alpha/dockerimages/users_add.sh"
 
+echo "added"
 rm -rf $userdatadir
 
