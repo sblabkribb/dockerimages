@@ -1,4 +1,4 @@
-FROM rocker/rstudio:4.1.2
+FROM rocker/shiny-verse:4.1.2
 #FROM rocker/rstudio:devel
 
 RUN apt-get update 
@@ -16,19 +16,12 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ## for mpi
 RUN apt-get install -y openmpi-common openmpi-bin libopenmpi-dev libjpeg-dev
 
-## tidyverse requirements
-RUN apt-get install -y libxml2-dev 
 
 ## for pdf, tex engine, texlive-xetex is required for hangule pdf
 RUN apt-get install -y texlive-xetex language-pack-ko fonts-nanum pandoc
 RUN apt-get install -y texlive-full texlive-extra-utils ghostscript
 RUN apt-get install -y libmysqlclient-dev
 
-## shiny
-#RUN apt-get install -y r-base
-#RUN apt-get install -y gdebi-core
-#RUN wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.16.958-amd64.deb
-#RUN gdebi shiny-server-1.5.16.958-amd64.deb
 
 RUN install2.r --error -r 'http://cran.rstudio.com' testthat usethis devtools bookdown
 RUN install2.r --error -r 'http://cran.rstudio.com' pbmcapply reticulate tidyverse BiocManager tinytex
@@ -90,12 +83,6 @@ RUN install2.r --error -r 'http://cran.rstudio.com' rstan shinystan ggthemes poo
 
 # v1.7
 RUN install2.r --error -r 'http://cran.rstudio.com' tensorflow keras
-
-# v1.9
-RUN install2.r --error -r 'http://cran.rstudio.com' TmCalculator
-RUN R -e 'BiocManager::install(c("openPrimeR"), ask=F)'
-
-
 
 ## 
 #COPY --chown=rstudio:rstudio /mnt/alpha/dockerimages/rstudio-prefs.json /home/rstudio/.config/rstudio/rstudio-prefs.json
