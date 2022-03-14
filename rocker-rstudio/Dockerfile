@@ -1,104 +1,129 @@
 FROM rocker/rstudio:4.1.2
 #FROM rocker/rstudio:devel
 
-RUN apt-get update 
-RUN apt-get install -y apt-utils
-RUN apt-get install -y liblzma-dev libbz2-dev 
-RUN apt-get install -y cmake build-essential gcc 
-RUN apt-get install -y bzip2 ca-certificates curl 
-RUN apt-get install -y libcairo2-dev libxt-dev vim
-RUN apt-get install -y python3-venv
-RUN apt-get install -y python3-pip
+RUN apt-get update && apt-get install -y --no-install-recommends \
+	apt-utils \
+	build-essential \
+	bzip2 \
+	ca-certificates \
+	cmake \
+	curl \
+	gcc \
+	libbz2-dev \
+	libcairo2-dev \
+	liblzma-dev \
+	libxt-dev \
+	mysql-client \
+	python3-pip \
+	python3-venv \
+	vim 
+
 
 RUN locale-gen ko_KR.UTF-8
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
-## for mpi
-RUN apt-get install -y openmpi-common openmpi-bin libopenmpi-dev libjpeg-dev
+RUN apt-get update && apt-get install -y --no-install-recommends \
+	## for mpi
+	libjpeg-dev \
+	libopenmpi-dev \
+	openmpi-bin \
+	openmpi-common \
+	## tidyverse requirements
+	libxml2-dev \
+	## for pdf, tex engine, texlive-xetex is required for hangule pdf
+	fonts-nanum \
+	ghostscript \
+	language-pack-ko \
+	libmysqlclient-dev \
+	pandoc \
+	texlive-extra-utils \
+	texlive-full \
+	texlive-xetex \
+	## blast
+	bcftools \
+	bowtie2 \
+	bwa \
+	clustalw \
+	ncbi-blast+ \
+	samtools \
+	## forgot why do these required...
+	elfutils \
+	libsodium-dev \
+	libtiff-tools \
+	libtiff5-dev \
+	libv8-dev 
 
-## tidyverse requirements
-RUN apt-get install -y libxml2-dev 
 
-## for pdf, tex engine, texlive-xetex is required for hangule pdf
-RUN apt-get install -y texlive-xetex language-pack-ko fonts-nanum pandoc
-RUN apt-get install -y texlive-full texlive-extra-utils ghostscript
-RUN apt-get install -y libmysqlclient-dev
+RUN install2.r --error -r 'http://cran.rstudio.com' \
+	BiocManager \
+	DBI \
+	DT \
+	RMySQL \
+	TmCalculator \
+	XML \
+	ape \
+	bookdown \
+	bslib \
+	caret \
+	config \
+	deSolve \
+	devtools \
+	doParallel \
+	e1071 \
+	ggthemes \
+	gt \
+	hwriter \
+	jpeg \
+	jsonlite \
+	kableExtra \
+	keras \
+	latticeExtra \
+	minpack.lm \
+	pbmcapply \
+	plumber \
+	pool \
+	randomForest \
+	reticulate \
+	reutils \
+	rstan \
+	shiny \
+	shinyFeedback \
+	shinybusy \
+	shinycssloaders \
+	shinydashboard \
+	shinydashboardPlus \
+	shinyjs \
+	shinystan \
+	shinytest \
+	tensorflow \
+	testthat \
+	tidyverse \
+	tiff \
+	tinytex \
+	usethis \
+	vcfR \
+	viridis \
+	wesanderson \
+	writexl 
 
-## shiny
-#RUN apt-get install -y r-base
-#RUN apt-get install -y gdebi-core
-#RUN wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-1.5.16.958-amd64.deb
-#RUN gdebi shiny-server-1.5.16.958-amd64.deb
 
-RUN install2.r --error -r 'http://cran.rstudio.com' testthat usethis devtools bookdown
-RUN install2.r --error -r 'http://cran.rstudio.com' pbmcapply reticulate tidyverse BiocManager tinytex
-RUN install2.r --error -r 'http://cran.rstudio.com' deSolve reutils minpack.lm
-RUN install2.r --error -r 'http://cran.rstudio.com' XML DT shiny
-RUN install2.r --error -r 'http://cran.rstudio.com' RMySQL gt kableExtra
-RUN install2.r --error -r 'http://cran.rstudio.com' caret viridis e1071 randomForest
+RUN R -e 'BiocManager::install(c("MatrixGenerics", "BiocParallel",  "Biostrings",  "DECIPHER",  "DNABarcodes",  "DelayedArray",  "GenomicRange",  "Rhtslib",  "Rsamtools", "ShortRead", "Structstrings", "VariantTools", "genbankr", "ggbio",  "ggtree",  "msa",  "openPrimeR",  "plyrange",  "plyranges",  "seqinr"), ask=F)'
 
-RUN apt-get install -y libtiff5-dev libtiff-tools
-RUN install2.r --error -r 'http://cran.rstudio.com' doParallel tiff jpeg wesanderson
-RUN install2.r --error -r 'http://cran.rstudio.com' hwriter ape latticeExtra
+RUN pip3 install \
+	nanofilt \
+	biopython 
 
-RUN install2.r --error -r 'http://cran.rstudio.com' BiocManager
-RUN R -e 'BiocManager::install(c("MatrixGenerics"), ask=F)'
-RUN R -e 'BiocManager::install(c("BiocParallel", "DelayedArray", "Rsamtools", "Rhtslib"), ask=F)'
-RUN R -e 'BiocManager::install(c("Biostrings", "ShortRead", "GenomicRange"), ask=F)'
-RUN R -e 'BiocManager::install(c("genbankr", "ggbio", "plyranges"), ask=F)'
-RUN R -e 'BiocManager::install("DNABarcodes", ask=F)'
-RUN R -e 'BiocManager::install("DECIPHER", ask=F)'
 
-RUN pip3 install nanofilt biopython XlsxWriter progressbar
-
-## v1.1
-#RUN install2.r --error -r 'http://cran.rstudio.com' taxonomizer  
-RUN apt-get install -y ncbi-blast+
-RUN R -e 'BiocManager::install(c("plyrange", "seqinr", "msa"), ask=F)'
 ENV BLASTDB /home/rstudio/alpha/blastdb
 
-# v1.2
-## apt-get
-RUN apt-get install -y bwa bowtie2 samtools bcftools clustalw
-## R package CRAN, bioconductor
-RUN install2.r --error -r 'http://cran.rstudio.com' vcfR
-RUN R -e 'BiocManager::install(c("VariantTools", "Structstrings"), ask=F)'
-
-# v1.3
-RUN apt-get install -y elfutils
+## ORFfinder
 RUN cd /usr/local/bin
 RUN wget https://ftp.ncbi.nlm.nih.gov/genomes/TOOLS/ORFfinder/linux-i64/ORFfinder.gz
 RUN gzip -d ORFfinder.gz
 RUN chmod 755 ORFfinder
-RUN R -e 'BiocManager::install(c("ggtree"), ask=F)'
 
-
-# v1.4
-RUN apt-get install -y mysql-client
-RUN install2.r --error -r 'http://cran.rstudio.com' RMySQL bslib shinydashboard shinydashboardPlus
-
-# v1.5
-RUN install2.r --error -r 'http://cran.rstudio.com' shinyjs shinyFeedback 
-RUN install2.r --error -r 'http://cran.rstudio.com' shinycssloaders shinyFeedback 
-RUN install2.r --error -r 'http://cran.rstudio.com' config 
-
-# v1.6
-RUN apt-get install -y libv8-dev libsodium-dev
-RUN install2.r --error -r 'http://cran.rstudio.com' rstan shinystan ggthemes pool jsonlite plumber shinybusy
-#RUN install2.r --error -r 'http://cran.rstudio.com' futile.logger snow matrixStats 
-
-
-# v1.7
-RUN install2.r --error -r 'http://cran.rstudio.com' tensorflow keras
-
-# v1.9
-RUN install2.r --error -r 'http://cran.rstudio.com' TmCalculator
-RUN R -e 'BiocManager::install(c("openPrimeR"), ask=F)'
-
-
-
-## 
-#COPY --chown=rstudio:rstudio /mnt/alpha/dockerimages/rstudio-prefs.json /home/rstudio/.config/rstudio/rstudio-prefs.json
+## shinydsembler
+#RUN R -e 'devtools::install_github("[git\@github.com](mailto:git@github.com){.email}:sblabkribb/shinydsembler.git", ref="main", auth_token = "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" )'
 
 
 RUN apt-get autoremove -y && \
