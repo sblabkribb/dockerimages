@@ -51,7 +51,41 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	libsodium-dev \
 	libtiff-tools \
 	libtiff5-dev \
-	libv8-dev 
+	libv8-dev \
+	libfftw3-dev \
+	libx11-dev \
+	libtiff-dev
+
+RUN curl -sSLk https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
+    && bash /tmp/miniconda.sh -u -bfp /usr/local \
+    && rm -rf /tmp/miniconda.sh \
+    && conda config --set ssl_verify no \
+    && conda update conda --yes \
+    && conda init bash \
+    && conda update --all --yes \
+    && conda create -n basic python=3 --yes 
+    #&& conda install -y python=3 \
+    #&& conda update conda 
+
+# RUN ln -s /usr/local/etc/profile.d/conda.sh /etc/profile.d/conda.sh \
+#     && echo ". /usrlocal/etc/profile.d/conda.sh" >> ~/.bashrc \
+#     && echo "conda activate basic" >> ~/.bashrc 
+# 
+## conda packages
+SHELL ["/bin/bash", "-c"]
+RUN conda config --set ssl_verify no \
+    && source activate basic \
+    && conda config --add channels conda-forge \
+    && conda config --add channels anaconda \
+    && conda config --add channels bioconda \
+    && conda update --all --yes \
+    && conda install biopython jupyterlab pandas matplotlib blast scikit-learn \
+    && conda install openssl certifi cffi scikit-image keras nanofilt
+
+
+#RUN install2.r --error -r 'http://cran.rstudio.com' \
+# 	reticulate 
+# 
 
 
 RUN install2.r --error -r 'http://cran.rstudio.com' \
@@ -78,6 +112,7 @@ RUN install2.r --error -r 'http://cran.rstudio.com' \
 	kableExtra \
 	keras \
 	latticeExtra \
+	imager \
 	minpack.lm \
 	pbmcapply \
 	plumber \
@@ -98,6 +133,7 @@ RUN install2.r --error -r 'http://cran.rstudio.com' \
 	tensorflow \
 	testthat \
 	tidyverse \
+	## tidymodel \
 	tiff \
 	tinytex \
 	usethis \
@@ -108,10 +144,6 @@ RUN install2.r --error -r 'http://cran.rstudio.com' \
 
 
 RUN R -e 'BiocManager::install(c("MatrixGenerics", "BiocParallel",  "Biostrings",  "DECIPHER",  "DNABarcodes",  "DelayedArray",  "GenomicRange",  "Rhtslib",  "Rsamtools", "ShortRead", "Structstrings", "VariantTools", "genbankr", "ggbio",  "ggtree",  "msa",  "openPrimeR",  "plyrange",  "plyranges",  "seqinr"), ask=F)'
-
-RUN pip3 install \
-	nanofilt \
-	biopython 
 
 
 ENV BLASTDB /home/rstudio/alpha/blastdb
