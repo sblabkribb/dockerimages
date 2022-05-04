@@ -1,1 +1,2 @@
-docker build -t haseong/python-base:v0.3 .
+docker build --no-cache -t haseong/python-jupyter:v0.2 .
+#docker build -t haseong/python-jupyter:v0.1 .

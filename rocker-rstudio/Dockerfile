@@ -166,4 +166,12 @@ RUN apt-get autoremove -y && \
 # 
 
 
+ENV PATH /usr/local/envs/basic/bin:$PATH
+ENV PATH /usr/local/condabin/bin:$PATH
+SHELL ["conda", "activate", "basic"]
+
+
+
+
+
 
