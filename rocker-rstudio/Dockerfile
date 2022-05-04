@@ -16,13 +16,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	mysql-client \
 	python3-pip \
 	python3-venv \
-	vim 
-
-
-RUN locale-gen ko_KR.UTF-8
-ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
+	vim \
 	## for mpi
 	libjpeg-dev \
 	libopenmpi-dev \
@@ -39,13 +33,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	texlive-extra-utils \
 	texlive-full \
 	texlive-xetex \
-	## blast
-	bcftools \
-	bowtie2 \
-	bwa \
-	clustalw \
-	ncbi-blast+ \
-	samtools \
 	## forgot why do these required...
 	elfutils \
 	libsodium-dev \
@@ -56,36 +43,58 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	libx11-dev \
 	libtiff-dev
 
+RUN locale-gen ko_KR.UTF-8
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+
+ARG PYTHON_VERSION=3
+ARG CONDA_ENV_NAME=basic
+
 RUN curl -sSLk https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
     && bash /tmp/miniconda.sh -u -bfp /usr/local \
     && rm -rf /tmp/miniconda.sh \
-    && conda config --set ssl_verify no \
-    && conda update conda --yes \
-    && conda init bash \
+    && conda config --set allow_conda_downgrades true \
+    && conda install conda=4.12 \
+    #&& conda update -y conda \
     && conda update --all --yes \
-    && conda create -n basic python=3 --yes 
-    #&& conda install -y python=3 \
-    #&& conda update conda 
+    && conda create -n $CONDA_ENV_NAME python=$PYTHON_VERSION --yes 
+ENV PATH /usr/local/envs/$CONDA_ENV_NAME/bin:$PATH
 
-# RUN ln -s /usr/local/etc/profile.d/conda.sh /etc/profile.d/conda.sh \
-#     && echo ". /usrlocal/etc/profile.d/conda.sh" >> ~/.bashrc \
-#     && echo "conda activate basic" >> ~/.bashrc 
-# 
-## conda packages
-SHELL ["/bin/bash", "-c"]
-RUN conda config --set ssl_verify no \
-    && source activate basic \
-    && conda config --add channels conda-forge \
+RUN source activate ${CONDA_ENV_NAME} 
+
+RUN conda config --add channels conda-forge \
     && conda config --add channels anaconda \
     && conda config --add channels bioconda \
-    && conda update --all --yes \
-    && conda install biopython jupyterlab pandas matplotlib blast scikit-learn \
-    && conda install openssl certifi cffi scikit-image keras nanofilt
+    && conda config --set ssl_verify no  \
+    && conda config --set channel_priority false
 
-
-#RUN install2.r --error -r 'http://cran.rstudio.com' \
-# 	reticulate 
-# 
+RUN conda install -y 
+	bcftools \
+ 	biopython \
+	blast \
+	bowtie2 \
+	bwa \
+	certifi \
+	cffi \
+	clustalw \
+	cutadapt \ 
+	fastqc \
+	jupyterlab \
+	keras \
+	khmer \
+	matplotlib \
+	minimap2 \
+	nanofilt \ 
+	openssl \
+	pandas \
+	pydna \
+	pysam \
+	pytorch \
+	samtools \
+	scikit-image \
+	scikit-learn \
+	seaborn \
+	tensorflow \
+	torchvision 
 
 
 RUN install2.r --error -r 'http://cran.rstudio.com' \
@@ -143,10 +152,10 @@ RUN install2.r --error -r 'http://cran.rstudio.com' \
 	writexl 
 
 
-RUN R -e 'BiocManager::install(c("MatrixGenerics", "BiocParallel",  "Biostrings",  "DECIPHER",  "DNABarcodes",  "DelayedArray",  "GenomicRange",  "Rhtslib",  "Rsamtools", "ShortRead", "Structstrings", "VariantTools", "genbankr", "ggbio",  "ggtree",  "msa",  "openPrimeR",  "plyrange",  "plyranges",  "seqinr"), ask=F)'
+RUN R -e 'BiocManager::install(c( "MatrixGenerics",  "BiocParallel",   "Biostrings",  "DECIPHER",  "DNABarcodes",  "DelayedArray",  "GenomicRange",  "Rhtslib",  "Rsamtools", "ShortRead", "Structstrings", "VariantTools", "genbankr", "ggbio",  "ggtree",  "msa",  "openPrimeR",  "plyrange",  "plyranges",  "seqinr"), ask=F)'
 
 
-ENV BLASTDB /home/rstudio/alpha/blastdb
+#ENV BLASTDB /home/rstudio/alpha/blastdb
 
 ## ORFfinder
 RUN cd /usr/local/bin
@@ -165,13 +174,19 @@ RUN apt-get autoremove -y && \
 # 
 # 
 
+RUN echo "alias ll='ls -al'" >> ~/.bashrc
+RUN echo "export LS_COLORS=\"di=00;36:fi=00;37\"" >> ~/.bashrc
+RUN echo "source activate ${CONDA_ENV_NAME}" >> ~/.bashrc
 
-ENV PATH /usr/local/envs/basic/bin:$PATH
 ENV PATH /usr/local/condabin/bin:$PATH
-SHELL ["conda", "activate", "basic"]
+
+#WORKDIR /home/python
 
 
-
+# env info
+#conda env export > environment.yaml
+# package info
+#conda list --explicit > package-list.txt
 
 
 

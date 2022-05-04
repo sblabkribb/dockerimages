@@ -23,21 +23,51 @@ ARG CONDA_ENV_NAME=basic
 RUN curl -sSLk https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
     && bash /tmp/miniconda.sh -u -bfp /usr/local \
     && rm -rf /tmp/miniconda.sh \
-    #&& conda config --set ssl_verify no \
     #&& conda init bash \
-    && conda update -y conda \
-    && conda create -n $CONDA_ENV_NAME python=$PYTHON_VERSION tensorflow --yes 
+    && conda config --set allow_conda_downgrades true \
+    && conda install conda=4.12 \
+    #&& conda update -y conda \
+    && conda update --all --yes \
+    && conda create -n $CONDA_ENV_NAME python=$PYTHON_VERSION --yes 
 ENV PATH /usr/local/envs/$CONDA_ENV_NAME/bin:$PATH
 
 
-RUN source activate ${CONDA_ENV_NAME} \
-    && conda config --add channels conda-forge \
+RUN source activate ${CONDA_ENV_NAME} 
+
+RUN conda config --add channels conda-forge \
     && conda config --add channels anaconda \
     && conda config --add channels bioconda \
-    && conda install -y biopython jupyterlab pandas matplotlib blast scikit-learn \
- 		    openssl certifi cffi scikit-image keras nanofilt \
- 		    pytorch torchvision seaborn pydna khmer fastqc cutadapt \
- 		    pysam minimap2 samtools 
+    && conda config --set ssl_verify no  \
+    && conda config --set channel_priority false
+
+RUN conda install -y \
+	bcftools \
+ 	biopython \
+	blast \
+	bowtie2 \
+	bwa \
+	certifi \
+	cffi \
+	clustalw \
+	cutadapt \ 
+	fastqc \
+	jupyterlab \
+	keras \
+	khmer \
+	matplotlib \
+	minimap2 \
+	nanofilt \ 
+	openssl \
+	pandas \
+	pydna \
+	pysam \
+	pytorch \
+	samtools \
+	scikit-image \
+	scikit-learn \
+	seaborn \
+	tensorflow \
+	torchvision 
 
 
 RUN jupyter serverextension enable --py jupyterlab --sys-prefix 
