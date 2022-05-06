@@ -1,6 +1,7 @@
 FROM rocker/rstudio:4.1.2
 #FROM rocker/rstudio:devel
 
+SHELL ["/bin/bash", "-c"]
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	apt-utils \
 	build-essential \
@@ -46,55 +47,52 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN locale-gen ko_KR.UTF-8
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
-ARG PYTHON_VERSION=3
+
+
+ARG PYTHON_VERSION=3.8
 ARG CONDA_ENV_NAME=basic
 
+## conda installation
 RUN curl -sSLk https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /tmp/miniconda.sh \
-    && bash /tmp/miniconda.sh -u -bfp /usr/local \
-    && rm -rf /tmp/miniconda.sh \
-    && conda config --set allow_conda_downgrades true \
-    && conda install conda=4.12 \
+    && bash /tmp/miniconda.sh -u -bfp /opt \
+    && rm -rf /tmp/miniconda.sh 
+    #&& conda init bash \
+    #&& conda config --set allow_conda_downgrades true \
+    #&& conda install conda=4.12 \
     #&& conda update -y conda \
-    && conda update --all --yes \
-    && conda create -n $CONDA_ENV_NAME python=$PYTHON_VERSION --yes 
-ENV PATH /usr/local/envs/$CONDA_ENV_NAME/bin:$PATH
+ENV PATH /opt/bin:$PATH
+RUN conda create -n $CONDA_ENV_NAME python=$PYTHON_VERSION tensorflow --yes 
+ENV PATH /opt/envs/$CONDA_ENV_NAME/bin:$PATH
 
 RUN source activate ${CONDA_ENV_NAME} 
 
-RUN conda config --add channels conda-forge \
-    && conda config --add channels anaconda \
-    && conda config --add channels bioconda \
-    && conda config --set ssl_verify no  \
-    && conda config --set channel_priority false
+RUN conda install -c anaconda -y pandas 
+RUN conda install -c conda-forge -y jupyterlab 
+RUN conda install -c conda-forge -y matplotlib 
+RUN conda install -c conda-forge -y keras 
+RUN conda install -c conda-forge -y scikit-image 
+RUN conda install -c conda-forge -y scikit-learn 
+RUN conda install -c conda-forge -y scikit-learn-intelex 
+#RUN conda install -c pytorch-lts -y pytorch 
+#RUN conda install -c pytorch-lts -y torchvision
+RUN conda install -c conda-forge -y opencv 
 
-RUN conda install -y 
-	bcftools \
- 	biopython \
-	blast \
-	bowtie2 \
-	bwa \
-	certifi \
-	cffi \
-	clustalw \
-	cutadapt \ 
-	fastqc \
-	jupyterlab \
-	keras \
-	khmer \
-	matplotlib \
-	minimap2 \
-	nanofilt \ 
-	openssl \
-	pandas \
-	pydna \
-	pysam \
-	pytorch \
-	samtools \
-	scikit-image \
-	scikit-learn \
-	seaborn \
-	tensorflow \
-	torchvision 
+RUN conda install -c conda-forge -y biopython 
+RUN conda install -c bioconda -y blast 
+RUN conda install -c bioconda -y bowtie2 
+RUN conda install -c bioconda -y bwa 
+RUN conda install -c bioconda -y bcftools
+RUN conda install -c bioconda -y clustalw 
+#RUN conda install -c bioconda -y cutadapt 
+RUN conda install -c bioconda -y fastqc 
+#RUN conda install -y khmer 
+RUN conda install -c bioconda -y minimap2
+RUN conda install -c bioconda -y nanofilt 
+#RUN conda install -c bioconda -y pydna 
+#RUN conda install -y pysam 
+RUN conda install -c conda-forge -y seaborn 
+RUN conda install -c bioconda -y samtools 
+
 
 
 RUN install2.r --error -r 'http://cran.rstudio.com' \
@@ -137,7 +135,7 @@ RUN install2.r --error -r 'http://cran.rstudio.com' \
 	shinydashboard \
 	shinydashboardPlus \
 	shinyjs \
-	shinystan \
+	## shinystan \
 	shinytest \
 	tensorflow \
 	testthat \
@@ -162,7 +160,7 @@ RUN cd /usr/local/bin
 RUN wget https://ftp.ncbi.nlm.nih.gov/genomes/TOOLS/ORFfinder/linux-i64/ORFfinder.gz
 RUN gzip -d ORFfinder.gz
 RUN chmod 755 ORFfinder
-
+# 
 ## shinydsembler
 #RUN R -e 'devtools::install_github("[git\@github.com](mailto:git@github.com){.email}:sblabkribb/shinydsembler.git", ref="main", auth_token = "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" )'
 
@@ -178,7 +176,7 @@ RUN echo "alias ll='ls -al'" >> ~/.bashrc
 RUN echo "export LS_COLORS=\"di=00;36:fi=00;37\"" >> ~/.bashrc
 RUN echo "source activate ${CONDA_ENV_NAME}" >> ~/.bashrc
 
-ENV PATH /usr/local/condabin/bin:$PATH
+#ENV PATH /opt/condabin/bin:$PATH
 
 #WORKDIR /home/python
 
