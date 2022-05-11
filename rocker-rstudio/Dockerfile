@@ -95,59 +95,16 @@ RUN conda install -c bioconda -y samtools
 
 
 
-RUN install2.r --error -r 'http://cran.rstudio.com' \
-	BiocManager \
-	DBI \
-	DT \
-	RMySQL \
-	TmCalculator \
-	XML \
-	ape \
-	bookdown \
-	bslib \
-	caret \
-	config \
-	deSolve \
-	devtools \
-	doParallel \
-	e1071 \
-	ggthemes \
-	gt \
-	hwriter \
-	jpeg \
-	jsonlite \
-	kableExtra \
-	keras \
-	latticeExtra \
-	imager \
-	minpack.lm \
-	pbmcapply \
-	plumber \
-	pool \
-	randomForest \
-	reticulate \
-	reutils \
-	rstan \
-	shiny \
-	shinyFeedback \
-	shinybusy \
-	shinycssloaders \
-	shinydashboard \
-	shinydashboardPlus \
-	shinyjs \
-	## shinystan \
-	shinytest \
-	tensorflow \
-	testthat \
-	tidyverse \
-	## tidymodel \
-	tiff \
-	tinytex \
-	usethis \
-	vcfR \
-	viridis \
-	wesanderson \
-	writexl 
+RUN install2.r --error -r 'http://cran.rstudio.com' BiocManager DBI DT RMySQL 
+RUN install2.r --error -r 'http://cran.rstudio.com' TmCalculator XML ape bookdown 
+RUN install2.r --error -r 'http://cran.rstudio.com' bslib config deSolve 
+RUN install2.r --error -r 'http://cran.rstudio.com' devtools doParallel e1071  ggthemes gt 
+RUN install2.r --error -r 'http://cran.rstudio.com' hwriter jpeg jsonlite kableExtra keras
+RUN install2.r --error -r 'http://cran.rstudio.com' latticeExtra minpack.lm pbmcapply plumber 
+RUN install2.r --error -r 'http://cran.rstudio.com' pool randomForest reticulate reutils rstan 
+RUN install2.r --error -r 'http://cran.rstudio.com' shiny shinyFeedback shinybusy shinycssloaders shinydashboard shinydashboardPlus shinyjs
+RUN install2.r --error -r 'http://cran.rstudio.com' tensorflow testthat tidyverse tidymodels tiff 
+RUN install2.r --error -r 'http://cran.rstudio.com' tinytex usethis vcfR viridis wesanderson writexl 
 
 
 RUN R -e 'BiocManager::install(c( "MatrixGenerics",  "BiocParallel",   "Biostrings",  "DECIPHER",  "DNABarcodes",  "DelayedArray",  "GenomicRange",  "Rhtslib",  "Rsamtools", "ShortRead", "Structstrings", "VariantTools", "genbankr", "ggbio",  "ggtree",  "msa",  "openPrimeR",  "plyrange",  "plyranges",  "seqinr"), ask=F)'
