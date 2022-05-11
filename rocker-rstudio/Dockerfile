@@ -95,59 +95,59 @@ RUN conda install -c bioconda -y samtools
 
 
 
-RUN install2.r --error -r 'http://cran.rstudio.com' \
-	BiocManager \
-	DBI \
-	DT \
-	RMySQL \
-	TmCalculator \
-	XML \
-	ape \
-	bookdown \
-	bslib \
-	caret \
-	config \
-	deSolve \
-	devtools \
-	doParallel \
-	e1071 \
-	ggthemes \
-	gt \
-	hwriter \
-	jpeg \
-	jsonlite \
-	kableExtra \
-	keras \
-	latticeExtra \
-	imager \
-	minpack.lm \
-	pbmcapply \
-	plumber \
-	pool \
-	randomForest \
-	reticulate \
-	reutils \
-	rstan \
-	shiny \
-	shinyFeedback \
-	shinybusy \
-	shinycssloaders \
-	shinydashboard \
-	shinydashboardPlus \
-	shinyjs \
-	## shinystan \
-	shinytest \
-	tensorflow \
-	testthat \
-	tidyverse \
-	## tidymodel \
-	tiff \
-	tinytex \
-	usethis \
-	vcfR \
-	viridis \
-	wesanderson \
-	writexl 
+
+RUN install2.r --error -r 'http://cran.rstudio.com' ape 
+RUN install2.r --error -r 'http://cran.rstudio.com' BiocManager 
+RUN install2.r --error -r 'http://cran.rstudio.com' bookdown 
+RUN install2.r --error -r 'http://cran.rstudio.com' bslib 
+RUN install2.r --error -r 'http://cran.rstudio.com' caret 
+RUN install2.r --error -r 'http://cran.rstudio.com' config 
+RUN install2.r --error -r 'http://cran.rstudio.com' DBI 
+RUN install2.r --error -r 'http://cran.rstudio.com' deSolve 
+RUN install2.r --error -r 'http://cran.rstudio.com' devtools 
+RUN install2.r --error -r 'http://cran.rstudio.com' doParallel 
+RUN install2.r --error -r 'http://cran.rstudio.com' DT 
+RUN install2.r --error -r 'http://cran.rstudio.com' e1071 
+RUN install2.r --error -r 'http://cran.rstudio.com' ggthemes 
+RUN install2.r --error -r 'http://cran.rstudio.com' gt 
+RUN install2.r --error -r 'http://cran.rstudio.com' hwriter 
+#RUN install2.r --error -r 'http://cran.rstudio.com' imager 
+RUN install2.r --error -r 'http://cran.rstudio.com' jpeg 
+RUN install2.r --error -r 'http://cran.rstudio.com' jsonlite 
+RUN install2.r --error -r 'http://cran.rstudio.com' kableExtra 
+RUN install2.r --error -r 'http://cran.rstudio.com' keras 
+RUN install2.r --error -r 'http://cran.rstudio.com' latticeExtra 
+RUN install2.r --error -r 'http://cran.rstudio.com' minpack.lm 
+RUN install2.r --error -r 'http://cran.rstudio.com' pbmcapply 
+RUN install2.r --error -r 'http://cran.rstudio.com' plumber 
+RUN install2.r --error -r 'http://cran.rstudio.com' pool 
+RUN install2.r --error -r 'http://cran.rstudio.com' randomForest 
+RUN install2.r --error -r 'http://cran.rstudio.com' reticulate 
+RUN install2.r --error -r 'http://cran.rstudio.com' reutils 
+RUN install2.r --error -r 'http://cran.rstudio.com' RMySQL 
+RUN install2.r --error -r 'http://cran.rstudio.com' rstan 
+RUN install2.r --error -r 'http://cran.rstudio.com' shiny 
+RUN install2.r --error -r 'http://cran.rstudio.com' shinybusy 
+RUN install2.r --error -r 'http://cran.rstudio.com' shinycssloaders 
+RUN install2.r --error -r 'http://cran.rstudio.com' shinydashboard 
+RUN install2.r --error -r 'http://cran.rstudio.com' shinydashboardPlus 
+RUN install2.r --error -r 'http://cran.rstudio.com' shinyFeedback 
+RUN install2.r --error -r 'http://cran.rstudio.com' shinyjs 
+#RUN install2.r --error -r 'http://cran.rstudio.com' shinystan 
+RUN install2.r --error -r 'http://cran.rstudio.com' shinytest 
+RUN install2.r --error -r 'http://cran.rstudio.com' tensorflow 
+RUN install2.r --error -r 'http://cran.rstudio.com' testthat 
+#RUN install2.r --error -r 'http://cran.rstudio.com' tidymodel 
+RUN install2.r --error -r 'http://cran.rstudio.com' tidyverse 
+RUN install2.r --error -r 'http://cran.rstudio.com' tiff 
+RUN install2.r --error -r 'http://cran.rstudio.com' tinytex 
+RUN install2.r --error -r 'http://cran.rstudio.com' TmCalculator 
+RUN install2.r --error -r 'http://cran.rstudio.com' usethis 
+RUN install2.r --error -r 'http://cran.rstudio.com' vcfR 
+RUN install2.r --error -r 'http://cran.rstudio.com' viridis 
+RUN install2.r --error -r 'http://cran.rstudio.com' wesanderson 
+RUN install2.r --error -r 'http://cran.rstudio.com' writexl 
+RUN install2.r --error -r 'http://cran.rstudio.com' XML 
 
 
 RUN R -e 'BiocManager::install(c( "MatrixGenerics",  "BiocParallel",   "Biostrings",  "DECIPHER",  "DNABarcodes",  "DelayedArray",  "GenomicRange",  "Rhtslib",  "Rsamtools", "ShortRead", "Structstrings", "VariantTools", "genbankr", "ggbio",  "ggtree",  "msa",  "openPrimeR",  "plyrange",  "plyranges",  "seqinr"), ask=F)'
