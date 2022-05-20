@@ -5,4 +5,4 @@ docker run -d --rm \
 	--name rstudio \
 	haseong/rocker-rstudio:v2.1
 
-sudo bash /mnt/alpha/dockerimages/bin/rstudio_users_sync.sh rstudio
+sudo bash ../bin/rstudio_users_sync.sh rstudio
