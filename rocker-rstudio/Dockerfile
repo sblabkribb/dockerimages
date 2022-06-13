@@ -87,7 +87,7 @@ RUN conda install -c bioconda -y clustalw
 RUN conda install -c bioconda -y fastqc 
 #RUN conda install -y khmer 
 RUN conda install -c bioconda -y minimap2
-RUN conda install -c bioconda -y nanofilt 
+#RUN conda install -c bioconda -y nanofilt 
 #RUN conda install -c bioconda -y pydna 
 #RUN conda install -y pysam 
 RUN conda install -c conda-forge -y seaborn 
@@ -120,6 +120,13 @@ RUN chmod 755 ORFfinder
 # 
 ## shinydsembler
 #RUN R -e 'devtools::install_github("[git\@github.com](mailto:git@github.com){.email}:sblabkribb/shinydsembler.git", ref="main", auth_token = "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" )'
+
+
+## for the next version
+## cran: shinytest msigdbr
+## bioconductor: fgsea 
+
+
 
 
 RUN apt-get autoremove -y && \
