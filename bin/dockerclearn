@@ -14,7 +14,7 @@ dockerimgps=$(docker images -f "dangling=true" -q)
 for line in $dockerimgps
 do
 	echo $line
-	docker rm $line
+	docker rmi $line
 done
 
 #$dockerps | while read lines; do
