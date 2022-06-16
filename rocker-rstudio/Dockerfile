@@ -42,7 +42,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	libv8-dev \
 	libfftw3-dev \
 	libx11-dev \
-	libtiff-dev
+	libtiff-dev \
+## clusterprofiler
+	libglpk.so.40
+
 
 RUN locale-gen ko_KR.UTF-8
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
@@ -105,10 +108,13 @@ RUN install2.r --error -r 'http://cran.rstudio.com' pool randomForest reticulate
 RUN install2.r --error -r 'http://cran.rstudio.com' shiny shinyFeedback shinybusy shinycssloaders shinydashboard shinydashboardPlus shinyjs
 RUN install2.r --error -r 'http://cran.rstudio.com' tensorflow testthat tidyverse tidymodels tiff 
 RUN install2.r --error -r 'http://cran.rstudio.com' tinytex usethis vcfR viridis wesanderson writexl 
+## new
+RUN install2.r --error -r 'http://cran.rstudio.com' shinytest msigdbr
 
 
 RUN R -e 'BiocManager::install(c( "MatrixGenerics",  "BiocParallel",   "Biostrings",  "DECIPHER",  "DNABarcodes",  "DelayedArray",  "GenomicRange",  "Rhtslib",  "Rsamtools", "ShortRead", "Structstrings", "VariantTools", "genbankr", "ggbio",  "ggtree",  "msa",  "openPrimeR",  "plyrange",  "plyranges",  "seqinr"), ask=F)'
 
+RUN R -e 'BiocManager::install(c("fgsea", "clusterProfiler")) 
 
 #ENV BLASTDB /home/rstudio/alpha/blastdb
 
@@ -122,9 +128,7 @@ RUN chmod 755 ORFfinder
 #RUN R -e 'devtools::install_github("[git\@github.com](mailto:git@github.com){.email}:sblabkribb/shinydsembler.git", ref="main", auth_token = "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" )'
 
 
-## for the next version
-## cran: shinytest msigdbr
-## bioconductor: fgsea 
+
 
 
 
