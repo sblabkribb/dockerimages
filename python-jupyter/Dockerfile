@@ -18,7 +18,8 @@ RUN apt-get update --fix-missing \
 	kmod \
 	build-essential \
 	cmake \
-	pkg-config
+	pkg-config \
+	libgl1-mesa-glx
 
 RUN locale-gen ko_KR.UTF-8
 ENV LANG=ko_KR.UTF-8 LC_ALL=ko_KR.UTF-8
@@ -59,6 +60,8 @@ RUN conda install -c conda-forge -y scikit-learn-intelex
 #RUN conda install -c pytorch-lts -y pytorch 
 #RUN conda install -c pytorch-lts -y torchvision
 RUN conda install -c conda-forge -y opencv 
+RUN conda install -c conda-forge -y mesalib
+
 
 RUN conda install -c conda-forge -y biopython 
 RUN conda install -c bioconda -y blast 
