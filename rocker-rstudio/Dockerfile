@@ -1,4 +1,4 @@
-FROM rocker/rstudio:4.1.2
+FROM rocker/rstudio:4.2.2
 #FROM rocker/rstudio:devel
 
 SHELL ["/bin/bash", "-c"]
@@ -8,6 +8,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	bzip2 \
 	ca-certificates \
 	cmake \
+  gdebi-core \
+  pandoc \
+  pandoc-citeproc \
 	curl \
 	gcc \
 	libbz2-dev \
@@ -26,15 +29,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	openmpi-common \
 ## tidyverse requirements
 	libxml2-dev \
-## for pdf, tex engine, texlive-xetex is required for hangule pdf
-	fonts-nanum \
-	ghostscript \
-	language-pack-ko \
-	libmysqlclient-dev \
-	pandoc \
-	texlive-extra-utils \
-	texlive-full \
-	texlive-xetex \
 ## forgot why do these required...
 	elfutils \
 	libsodium-dev \
@@ -47,10 +41,26 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ## requires clusterprofiler Sangeranalyser
 	libglpk-dev \
 ## neovim
-	software-properties-common 
+	software-properties-common \
+  libharfbuzz-dev \
+  libfribidi-dev
 
+RUN curl -o quarto-linux-amd64.deb -L https://github.com/quarto-dev/quarto-cli/releases/download/v1.2.280/quarto-1.2.280-linux-amd64.deb
+#RUN chmod +x quarto-linux-amd64.deb
+RUN gdebi --non-interactive quarto-linux-amd64.deb
 
-RUN add-apt-repository ppa:neovim-ppa/stable 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+## for pdf, tex engine, texlive-xetex is required for hangule pdf
+	fonts-nanum \
+	ghostscript \
+	language-pack-ko 
+	#libmysqlclient-dev \
+	#pandoc \
+	#texlive-extra-utils \
+	#texlive-full \
+	#texlive-xetex \
+
+#RUN add-apt-repository ppa:neovim-ppa/stable 
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	neovim \
 	python3-neovim
@@ -120,10 +130,9 @@ RUN conda install -c conda-forge -y seaborn
 RUN conda install -c bioconda -y samtools 
 
 
-RUN apt-get update && apt-get install -y --no-install-recommends libharfbuzz-dev libfribidi-dev
 
 
-RUN install2.r --error -r 'http://cran.rstudio.com' BiocManager DBI DT RMySQL 
+RUN install2.r --error -r 'http://cran.rstudio.com' BiocManager DBI DT # RMySQL 
 RUN install2.r --error -r 'http://cran.rstudio.com' TmCalculator XML ape bookdown 
 RUN install2.r --error -r 'http://cran.rstudio.com' bslib config deSolve 
 RUN install2.r --error -r 'http://cran.rstudio.com' devtools doParallel ggthemes gt 
@@ -153,7 +162,12 @@ RUN R -e 'BiocManager::install(c("fgsea", "clusterProfiler", "sangerseqR"))'
 #RUN chmod 755 ORFfinder
 # 
 ## shinydsembler
-#RUN R -e 'devtools::install_github("[git\@github.com](mailto:git@github.com){.email}:sblabkribb/shinydsembler.git", ref="main", auth_token = "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" )'
+RUN R -e 'devtools::install_github("git@github.com{.email}:sblabkribb/shinydsembler.git", ref="main", auth_token = "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")'
+
+
+## sblims-equip 
+RUN R -e 'devtools::install_github("sblabkribb/sblims", auth_token = "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")'
+RUN R -e 'library(SBLIMS);Set_baseinfo();Write_exampleDB()'
 
 
 RUN apt-get autoremove -y && \
